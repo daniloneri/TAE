@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Pagina Inicial</title>       
+    </h:head>
+    <h:body>  
+        <h:form id="formGrid">             
+            <p:growl id="msg"/>
+            <p:menubar> 
+                <f:facet name="options">
+                    <p:inputText style="margin-right:10px" placeholder="Search"/>
+                    <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" />
+                </f:facet>
+            </p:menubar>
+
+            <p:dataGrid var="eletro" value="#{eletronicoMB.listarEletronico}" columns="3" layout="grid"
+                        rows="6" paginator="true" id="dataGrid"
+                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="6,12,16">
+
+                <f:facet name="header">
+                    Consumo dos Aparelhos
+                </f:facet>
+
+                <p:panel header="#{eletro.tipo}" style="text-align:center">
+
+                    <h:panelGrid columns="2" style="width:100%">
+
+                        <h:outputText value="Potência:" />
+                        <h:outputText value="#{eletro.potencia} W" />                        
+                        <h:outputText value="Fabricante:"/>
+                        <h:outputText value="#{eletro.fabricante}" />
+                        <h:outputText value="Horas de uso:"/>
+                        <h:outputText value="#{eletro.horas}"/>
+                        <h:outputText value="Dias de uso:"/>
+                        <h:outputText value="#{eletro.dias}" />
+                        <h:outputText value="Consumo:"/>
+                        <h:outputText value="#{eletronicoMB.calcularConsumo(eletro)} Kw">
+                            <f:convertNumber locale="pt-BR" maxFractionDigits="2"></f:convertNumber>
+                        </h:outputText>  
+                        <h:outputText value="Comparar"/>
+                        <p:selectBooleanCheckbox id="check" value="#{eletronicoMB.comparar}" disabled="#{eletronicoMB.visualizar}">
+                            <p:ajax update="check" listener="#{eletronicoMB.compararEletronico()}"/>                      
+                        </p:selectBooleanCheckbox>                                             
+
+                    </h:panelGrid>
+                </p:panel>
+
+            </p:dataGrid>
+
+            <p:panel style="width: 20%" id="horizontal" header="Menu" toggleable="true" toggleOrientation="horizontal">
+                <p:menu>
+                    <p:menuitem value="Cadastrar" action="#{eletronicoMB.novoEletronico()}" 
+                                icon="ui-icon-plus" oncomplete="PF('dlgCadastro').show();" update=":formCadastro"/>
+                    <p:menuitem value="Consulta" icon="ui-icon-search"/>
+                </p:menu>
+            </p:panel>
+        </h:form>
+
+
+        <p:dialog header="Cadastro" id="dlgCadastro" widgetVar="dlgCadastro" modal="true" resizable="false">
+            <h:form id="formCadastro">
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="Tipo de Eletrônico:" />
+                    <p:inputText placeholder="Ventilador, Som, Geladeira..."
+                                 value="#{eletronicoMB.eletronico.tipo}" 
+                                 disabled=""/>
+                    <p:outputLabel value="Modelo/Fabricante:"/>
+                    <p:inputText placeholder="Airfryer/Philips"
+                                 value="#{eletronicoMB.eletronico.fabricante}" 
+                                 disabled=""/>
+                    <p:outputLabel value="Potencia(Watts):"/>
+                    <p:inputText placeholder="Watts"
+                                 type="number"
+                                 value="#{eletronicoMB.eletronico.potencia}" 
+                                 disabled=""/>
+                    <p:outputLabel value="Horas de Uso:"/>
+                    <p:inputText type="number" placeholder="Horas"
+                                 value="#{eletronicoMB.eletronico.horas}" 
+                                 disabled=""/>
+                    <p:outputLabel value="Dias de Uso:"/>
+                    <p:inputText placeholder="Dias"
+                                 type="number"
+                                 value="#{eletronicoMB.eletronico.dias}" 
+                                 disabled=""/>
+                    <f:facet name="footer">
+                        <div align="center">
+                            <p:commandButton value="Salvar" actionListener="#{eletronicoMB.salvar()}" 
+
+                                             oncomplete="PF('dlgCadastro').hide();" 
+                                             update=":formGrid"/>
+                            <p:commandButton value="Cancelar" onclick="PF('dlgCadastro').hide();" />
+                        </div>
+                    </f:facet>
+
+                </p:panelGrid>
+
+
+            </h:form>
+        </p:dialog>
+
+
+    </h:body>
+</html>
+
