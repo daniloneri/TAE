@@ -10,7 +10,7 @@
     <h:body>  
         <h:form id="formGrid">             
             <p:growl id="msg"/>
-            <p:menubar> 
+            <p:menubar > 
                 <f:facet name="options">
                     <p:inputText style="margin-right:10px" placeholder="Search"/>
                     <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" />
@@ -20,7 +20,7 @@
             <p:dataGrid var="eletro" value="#{eletronicoMB.listarEletronico}" columns="3" layout="grid"
                         rows="6" paginator="true" id="dataGrid"
                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                        rowsPerPageTemplate="6,12,16">
+                        rowsPerPageTemplate="6,12,16" >
 
                 <f:facet name="header">
                     Consumo dos Aparelhos
@@ -28,8 +28,8 @@
 
                 <p:panel header="#{eletro.tipo}" style="text-align:center">
 
-                    <h:panelGrid columns="2" style="width:100%">
-
+                    <h:panelGrid columns="2" style="width:100%" >
+                       
                         <h:outputText value="Potência:" />
                         <h:outputText value="#{eletro.potencia} W" />                        
                         <h:outputText value="Fabricante:"/>
