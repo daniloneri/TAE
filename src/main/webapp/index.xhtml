@@ -5,62 +5,93 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Pagina Inicial</title>       
+        <title>Pagina Inicial</title>  
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
     </h:head>
-    <h:body>  
-        <h:form id="formGrid">             
+    <h:body>
+
+        <h:form id="formGrid">   
+
+            <p:dialog header="Preencha antes de começar..." widgetVar="dlg2" modal="true" closable="false" visible="#{conceMB.flag}" height="200">
+                <p:panelGrid columns="2" style="width:100%">
+                    <p:outputLabel value="Concessionária:"/>
+                    <p:selectOneMenu id="conce" value="#{conceMB.user.conceid}" style="width:125px">
+                        <f:selectItems value="#{conceMB.listarConcessionaria()}" var="conce" itemLabel="#{conce.distribuidora}" itemValue="#{conce.id}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Digite seu nome:"/>
+                    <p:inputText value="#{conceMB.user.nome}"/>
+                    <p:outputLabel value="Seu Endereço:"/>
+                    <p:inputText value="#{conceMB.user.endereco}" />
+
+                </p:panelGrid>
+                <p:commandButton update="vltotal,basic" value="Continuar" action="#{conceMB.calcValor()}" onclick="PF('dlg2').hide()"/>
+            </p:dialog>
             <p:growl id="msg"/>
-            <p:menubar > 
-                <f:facet name="options">
-                    <p:inputText style="margin-right:10px" placeholder="Search"/>
-                    <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" />
-                </f:facet>
-            </p:menubar>
 
-            <p:dataGrid var="eletro" value="#{eletronicoMB.listarEletronico}" columns="3" layout="grid"
-                        rows="6" paginator="true" id="dataGrid"
-                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                        rowsPerPageTemplate="6,12,16" >
-
-                <f:facet name="header">
-                    Consumo dos Aparelhos
-                </f:facet>
-
-                <p:panel header="#{eletro.tipo}" style="text-align:center">
-
-                    <h:panelGrid columns="2" style="width:100%" >
-                       
-                        <h:outputText value="Potência:" />
-                        <h:outputText value="#{eletro.potencia} W" />                        
-                        <h:outputText value="Fabricante:"/>
-                        <h:outputText value="#{eletro.fabricante}" />
-                        <h:outputText value="Horas de uso:"/>
-                        <h:outputText value="#{eletro.horas}"/>
-                        <h:outputText value="Dias de uso:"/>
-                        <h:outputText value="#{eletro.dias}" />
-                        <h:outputText value="Consumo:"/>
-                        <h:outputText value="#{eletronicoMB.calcularConsumo(eletro)} Kw">
-                            <f:convertNumber locale="pt-BR" maxFractionDigits="2"></f:convertNumber>
-                        </h:outputText>  
-                        <h:outputText value="Comparar"/>
-                        <p:selectBooleanCheckbox id="check" value="#{eletronicoMB.comparar}" disabled="#{eletronicoMB.visualizar}">
-                            <p:ajax update="check" listener="#{eletronicoMB.compararEletronico()}"/>                      
-                        </p:selectBooleanCheckbox>                                             
-
-                    </h:panelGrid>
+            <p:layout style="min-width:400px;min-height:700px;">
+                <p:layoutUnit position="west" resizable="true" size="300" minSize="100" maxSize="500">
+                    <p:panel style="width: 95%" id="horizontal" header="Menu" toggleable="true" toggleOrientation="horizontal">
+                        <p:menu>
+                            <p:menuitem value="Cadastrar" action="#{eletronicoMB.novoEletronico()}" 
+                                        icon="ui-icon-plus" oncomplete="PF('dlgCadastro').show()" update=":formCadastro"/>
+                            <p:menuitem value="Consulta" icon="ui-icon-search"/>
+                            <p:menuitem value="Gerar Relatório" icon="ui-icon-note" ajax="false" target="_blank" action="#{eletronicoMB.gerarRelatorio()}"/>
+                        </p:menu>
+                    </p:panel>
+                    <p:panel id="basic" header="Valor Total" footer="De acordo com o valor tarifado.." style="margin-bottom:20px;">
+                        
+                        <h:outputText id="vltotal" 
+                            value="#{conceMB.tarifatotal}" style="font-size: 30px; font-weight: bold" /><br />
+                        <p:outputLabel value="Cliente:" style="font-size: 15px; font-weight: bold"/>
+                        <h:outputText value="#{conceMB.user.nome}" style="font-size: 15px;" />
+                        
+                        
+                    
                 </p:panel>
+                 <p:graphicImage url="img/z.png" width="150px" height="150px" style="opacity: 0.3; margin: 5% 20%;" />
+                </p:layoutUnit>
+                <p:layoutUnit position="center">
 
-            </p:dataGrid>
+                    <p:dataGrid var="eletro" value="#{eletronicoMB.listarEletronico}" columns="3" layout="grid"
+                                rows="6" paginator="true" id="dataGrid"
+                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                rowsPerPageTemplate="6,12,16" >
 
-            <p:panel style="width: 20%" id="horizontal" header="Menu" toggleable="true" toggleOrientation="horizontal">
-                <p:menu>
-                    <p:menuitem value="Cadastrar" action="#{eletronicoMB.novoEletronico()}" 
-                                icon="ui-icon-plus" oncomplete="PF('dlgCadastro').show();" update=":formCadastro"/>
-                    <p:menuitem value="Consulta" icon="ui-icon-search"/>
-                </p:menu>
-            </p:panel>
-        </h:form>
+                        <f:facet name="header">
+                            Consumo dos Aparelhos
+                        </f:facet>
 
+                        <p:panel header="#{eletro.tipo}" style="text-align:center">
+
+                            <h:panelGrid columns="2" style="width:100%" >
+
+                                <h:outputText value="Potência:" />
+                                <h:outputText value="#{eletro.potencia} W" />                        
+                                <h:outputText value="Fabricante:"/>
+                                <h:outputText value="#{eletro.fabricante}" />
+                                <h:outputText value="Horas de uso:"/>
+                                <h:outputText value="#{eletro.horas}"/>
+                                <h:outputText value="Dias de uso:"/>
+                                <h:outputText value="#{eletro.dias}" />
+                                <h:outputText value="Consumo:"/>
+                                <h:outputText value="#{eletronicoMB.calcularConsumo(eletro)} Kw">
+                                    <f:convertNumber locale="pt-BR" maxFractionDigits="2"></f:convertNumber>
+                                </h:outputText>  
+                                <h:outputText value="Comparar"/>
+                                <p:selectBooleanCheckbox id="check" value="#{eletronicoMB.comparar}" disabled="#{eletronicoMB.visualizar}">
+                                    <p:ajax update="check" listener="#{eletronicoMB.compararEletronico()}"/>                      
+                                </p:selectBooleanCheckbox>                                             
+
+                            </h:panelGrid>
+                        </p:panel>
+
+                    </p:dataGrid>
+                  
+                </p:layoutUnit>
+                
+            </p:layout>
+        
+    </h:form>
 
         <p:dialog header="Cadastro" id="dlgCadastro" widgetVar="dlgCadastro" modal="true" resizable="false">
             <h:form id="formCadastro">
@@ -89,10 +120,10 @@
                                  disabled=""/>
                     <f:facet name="footer">
                         <div align="center">
-                            <p:commandButton value="Salvar" actionListener="#{eletronicoMB.salvar()}" 
+                            <p:commandButton value="Salvar" action="#{conceMB.calcValor()}" actionListener="#{eletronicoMB.salvar()}" 
 
                                              oncomplete="PF('dlgCadastro').hide();" 
-                                             update=":formGrid"/>
+                                             update=":formGrid,:vltotal"/>
                             <p:commandButton value="Cancelar" onclick="PF('dlgCadastro').hide();" />
                         </div>
                     </f:facet>
@@ -102,8 +133,8 @@
 
             </h:form>
         </p:dialog>
-
-
+ <h:outputText id="vltotal" value="#{conceMB.tarifatotal}" />
+     
     </h:body>
 </html>
 

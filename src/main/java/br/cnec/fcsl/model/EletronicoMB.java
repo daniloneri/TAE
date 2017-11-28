@@ -1,10 +1,16 @@
 package br.cnec.fcsl.model;
 
+import br.cnec.fcsl.entidade.Concessionaria;
+import br.cnec.fcsl.report.Relatorio;
 import br.cnec.fcsl.entidade.Eletronico;
+import br.cnec.fcsl.entidade.Usuario;
 import br.cnec.fcsl.persistencia.EletronicoDao;
+
 import java.io.Serializable;
 import java.text.DecimalFormat;
+
 import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.faces.application.FacesMessage;
@@ -23,6 +29,16 @@ public class EletronicoMB implements Serializable {
     private boolean visualizar;
     private Double consumo;
     private int contador;
+    private Usuario user;
+    
+    public Usuario getUser() {
+        return user;
+    }
+
+    public void setUser(Usuario user) {
+        this.user = user;
+    }
+   
 
     @PostConstruct
     public void init() {
@@ -34,6 +50,8 @@ public class EletronicoMB implements Serializable {
             contador++;
         }
     }
+    
+  
 
     public String calcularConsumo(Eletronico eletronico) {
         DecimalFormat df = new DecimalFormat("#,###.00");
@@ -116,6 +134,13 @@ public class EletronicoMB implements Serializable {
     public void setContador(int contador) {
         this.contador = contador;
     }
-    
-    
+
+    public void gerarRelatorio() {
+        Relatorio r = new Relatorio();
+
+     
+            r.gerar(dao.listar());
+       
+
+    }
 }
