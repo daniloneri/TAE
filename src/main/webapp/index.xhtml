@@ -12,7 +12,7 @@
 
         <h:form id="formGrid">   
 
-            <p:dialog header="Preencha antes de começar..." widgetVar="dlg2" modal="true" closable="false" visible="#{conceMB.flag}" height="200">
+            <p:dialog header="Preencha antes de começar..." widgetVar="dlg2" modal="true" closable="false" visible="#{conceMB.flag}" height="150">
                 <p:panelGrid columns="2" style="width:100%">
                     <p:outputLabel value="Concessionária:"/>
                     <p:selectOneMenu id="conce" value="#{conceMB.user.conceid}" style="width:125px">
@@ -20,11 +20,9 @@
                     </p:selectOneMenu>
                     <p:outputLabel value="Digite seu nome:"/>
                     <p:inputText value="#{conceMB.user.nome}"/>
-                    <p:outputLabel value="Seu Endereço:"/>
-                    <p:inputText value="#{conceMB.user.endereco}" />
 
                 </p:panelGrid>
-                <p:commandButton update="vltotal,basic" value="Continuar" action="#{conceMB.calcValor()}" onclick="PF('dlg2').hide()"/>
+                <p:commandButton icon="ui-icon-circle-arrow-e" style="margin: 5% 34%" update="vltotal,basic" value="Continuar" action="#{conceMB.calcValor()}" onclick="PF('dlg2').hide()"/>
             </p:dialog>
             <p:growl id="msg"/>
 
@@ -34,11 +32,11 @@
                         <p:menu>
                             <p:menuitem value="Cadastrar" action="#{eletronicoMB.novoEletronico()}" 
                                         icon="ui-icon-plus" oncomplete="PF('dlgCadastro').show()" update=":formCadastro"/>
-                            <p:menuitem value="Consulta" icon="ui-icon-search"/>
-                            <p:menuitem value="Gerar Relatório" icon="ui-icon-note" ajax="false" target="_blank" action="#{eletronicoMB.gerarRelatorio()}"/>
+                            <p:menuitem value="Webservice Tarifas" icon="ui-icon-transferthick-e-w" target="_blank" url="rs/tarifas"/>
+                            <p:menuitem value="Emitir Relatório" icon="ui-icon-note" ajax="false" target="_blank" action="#{eletronicoMB.gerarRelatorio()}"/>
                         </p:menu>
                     </p:panel>
-                    <p:panel id="basic" header="Valor Total" footer="De acordo com o valor tarifado.." style="margin-bottom:20px;">
+                    <p:panel id="basic" header="Valor Total" footer="Valor estimado de acordo com a tarifa de cada região..." style="margin-bottom:20px; font-size:14px">
                         
                         <h:outputText id="vltotal" 
                             value="#{conceMB.tarifatotal}" style="font-size: 30px; font-weight: bold" /><br />
@@ -65,22 +63,18 @@
 
                             <h:panelGrid columns="2" style="width:100%" >
 
-                                <h:outputText value="Potência:" />
+                                <h:outputText class="lblinfo" value="Potência:" />
                                 <h:outputText value="#{eletro.potencia} W" />                        
-                                <h:outputText value="Fabricante:"/>
+                                <h:outputText class="lblinfo" value="Fabricante:"/>
                                 <h:outputText value="#{eletro.fabricante}" />
-                                <h:outputText value="Horas de uso:"/>
+                                <h:outputText class="lblinfo" value="Horas de uso:"/>
                                 <h:outputText value="#{eletro.horas}"/>
-                                <h:outputText value="Dias de uso:"/>
+                                <h:outputText class="lblinfo" value="Dias de uso:"/>
                                 <h:outputText value="#{eletro.dias}" />
-                                <h:outputText value="Consumo:"/>
+                                <h:outputText class="lblinfo" value="Consumo:"/>
                                 <h:outputText value="#{eletronicoMB.calcularConsumo(eletro)} Kw">
                                     <f:convertNumber locale="pt-BR" maxFractionDigits="2"></f:convertNumber>
-                                </h:outputText>  
-                                <h:outputText value="Comparar"/>
-                                <p:selectBooleanCheckbox id="check" value="#{eletronicoMB.comparar}" disabled="#{eletronicoMB.visualizar}">
-                                    <p:ajax update="check" listener="#{eletronicoMB.compararEletronico()}"/>                      
-                                </p:selectBooleanCheckbox>                                             
+                                </h:outputText>                                            
 
                             </h:panelGrid>
                         </p:panel>

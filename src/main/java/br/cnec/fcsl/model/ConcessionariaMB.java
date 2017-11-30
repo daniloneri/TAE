@@ -88,12 +88,7 @@ public class ConcessionariaMB{
     public List<Concessionaria> listarConcessionaria(){
         return dao.listarConcessionaria();
     }
-    
-    public void novoUsuario(){
-         System.out.println(user.getConceid());
-        System.out.println(user.getNome());
-         System.out.println(user.getEndereco());
-    }
+   
     
     public void calcValor(){
         double calc = 0;

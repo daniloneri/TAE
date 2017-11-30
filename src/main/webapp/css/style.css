@@ -8,3 +8,13 @@
     color: #ffffff !important;
     text-shadow: black 1px 2px !important;
 }
+
+.lblinfo{
+    font-weight: bold !important;
+}
+
+.ui-menuitem-text{
+    font-size:  17px;
+    margin: 2px 3px;
+}
+

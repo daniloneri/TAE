@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="472471aa-630c-4717-b320-d40e15991f4a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<queryString language="SQL">
 		<![CDATA[select * from eletronico]]>
 	</queryString>
@@ -20,14 +23,14 @@
 					<textElement>
 						<font size="34" isBold="true"/>
 					</textElement>
-					<text><![CDATA[TITLE]]></text>
+					<text><![CDATA[Relatório]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="395" y="43" width="180" height="20" forecolor="#FFFFFF" uuid="7de9c680-04ec-42cd-bf95-707237299667"/>
+					<reportElement x="337" y="43" width="238" height="20" forecolor="#FFFFFF" uuid="7de9c680-04ec-42cd-bf95-707237299667"/>
 					<textElement textAlignment="Right">
 						<font size="14" isBold="false"/>
 					</textElement>
-					<text><![CDATA[Add a description here]]></text>
+					<text><![CDATA[Relatório de Eletrônicos Cadastrados]]></text>
 				</staticText>
 			</frame>
 		</band>
@@ -41,39 +44,39 @@
 				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="01640259-f4aa-4d41-b785-7da46e3cef10"/>
 			</line>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="7efae8a6-f930-4ae0-886d-c71fb2dfa4a6"/>
+				<reportElement mode="Opaque" x="0" y="0" width="100" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="7efae8a6-f930-4ae0-886d-c71fb2dfa4a6"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[dias]]></text>
+				<text><![CDATA[Dias de Uso]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="111" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="615ac037-619e-455f-af0a-4d5802522e36"/>
+				<reportElement mode="Opaque" x="111" y="0" width="101" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="615ac037-619e-455f-af0a-4d5802522e36"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[fabricante]]></text>
+				<text><![CDATA[Fabricante]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="222" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="b8b40c4d-5f1a-41d8-b8ac-ad1c97f9a905"/>
+				<reportElement mode="Opaque" x="222" y="0" width="95" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="b8b40c4d-5f1a-41d8-b8ac-ad1c97f9a905"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[horas]]></text>
+				<text><![CDATA[Horas de Uso]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="333" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="9a858080-2cc1-4a93-8bbe-982b2ca97d3b"/>
+				<reportElement mode="Opaque" x="333" y="0" width="101" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="9a858080-2cc1-4a93-8bbe-982b2ca97d3b"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[potencia]]></text>
+				<text><![CDATA[Potência]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="444" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="017bc962-5a39-4441-a872-3e372af5e824"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[tipo]]></text>
+				<text><![CDATA[Tipo]]></text>
 			</staticText>
 		</band>
 	</columnHeader>

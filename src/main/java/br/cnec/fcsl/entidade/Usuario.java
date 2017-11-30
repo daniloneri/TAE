@@ -13,7 +13,6 @@ public class Usuario {
     
     private int conceid;
     private String nome;
-    private String endereco;
 
     public int getConceid() {
         return conceid;
@@ -31,12 +30,6 @@ public class Usuario {
         this.nome = nome;
     }
 
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
+    
     
 }

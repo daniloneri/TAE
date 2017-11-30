@@ -25,7 +25,6 @@ public class EletronicoMB implements Serializable {
     @Inject
     private EletronicoDao dao;
     private Eletronico eletronico;
-    private boolean comparar;
     private boolean visualizar;
     private Double consumo;
     private int contador;
@@ -45,11 +44,6 @@ public class EletronicoMB implements Serializable {
         visualizar = false;
     }
 
-    public void verificarCheckBox() {
-        if (comparar) {
-            contador++;
-        }
-    }
     
   
 
@@ -69,13 +63,6 @@ public class EletronicoMB implements Serializable {
         eletronico = new Eletronico();
     }
 
-    public void compararEletronico() {
-        comparar = true;
-    }
-
-    public void editarEletronico() {
-        comparar = false;
-    }
 
     public void excluirEletronico() {
         dao.excluir(eletronico.getId());
@@ -103,9 +90,7 @@ public class EletronicoMB implements Serializable {
         this.dao = dao;
     }
 
-    public boolean isComparar() {
-        return comparar;
-    }
+   
 
     public boolean isVisualizar() {
         return visualizar;
@@ -115,9 +100,6 @@ public class EletronicoMB implements Serializable {
         this.visualizar = visualizar;
     }
 
-    public void setComparar(boolean comparar) {
-        this.comparar = comparar;
-    }
 
     public Double getConsumo() {
         return consumo;
